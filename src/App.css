@@ -24,3 +24,39 @@ html {
 .jumbotron {
   background-color: white!important;
 }
+
+.loading {
+  width: 25vw;
+  height: 25vh;
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.carousel-caption {
+  background-color: rgba(211,211,211, 0.5);
+  color: black!important;
+  top: 1rem;
+  bottom: auto!important;
+}
+
+.carousel-caption a {
+  color: black!important;
+  text-decoration: underline;
+}
+
+.carousel-caption a:hover {
+  color: blue!important;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
