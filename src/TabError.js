@@ -3,7 +3,6 @@ import { Jumbotron } from 'react-bootstrap';
 
 
 function TabError(props) {
-    console.log(props.error);
     return (
         <Jumbotron className="text-center">
             <h1>Fehler</h1>
