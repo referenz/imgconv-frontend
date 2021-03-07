@@ -1,24 +1,33 @@
-
 .navbar1 {
-  background-color:lightslategray;
+  background-color: #00818b;
+}
+
+.navbar-brand {
+  color: #fff!important;
+}
+
+.navbar-brand img {
+  filter: invert(1);
 }
 
 .navbar a {
-  color: gold;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.navbar a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.semver {
+  color: #ddd!important;
 }
 
 .inputbar1 {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-}
-
-html {
-  background-color: fuchsia;
-}
-
-.tab1 {
-  background-color: fuchsia;
 }
 
 .jumbotron {
@@ -60,3 +69,11 @@ html {
 .carousel-control-prev {
     filter: invert(100%);
 }
+
+a[download] {
+  content: 'testetes';
+  background-image: url('file-earmark-arrow-down.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+} 

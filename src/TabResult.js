@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
+import TabChart from './TabChart';
 import TabResultItems from './TabResultItems';
 
 
 function TabResult(props) {
+    const [fullManifest, setFullManifest] = useState(null);
     const [jpegSources, setJpegSources] = useState(null);
     const [pngSource, setPngSource] = useState(null);
     const [webpSources, setWebpSources] = useState(null);
@@ -32,6 +34,7 @@ function TabResult(props) {
                     continue;
                 }
             }
+            setFullManifest(manifest);
             setJpegSources(jpegList);
             setWebpSources(webpList);
             setSourcesResolved(true);
@@ -41,7 +44,8 @@ function TabResult(props) {
     }, [props.outputImages])
 
     return (
-        <Tabs defaultActiveKey="home" className="sticky-top">
+        <Tabs defaultActiveKey="chart" className="sticky-top">
+            <Tab eventKey="chart" title="Auswertung">{ sourcesResolved && <TabChart manifest={fullManifest} /> }</Tab>
             <Tab eventKey="home" title="Original"><TabResultItems images={props.originalImage} /></Tab>
             <Tab eventKey="jpeg" title="JPEG">{ sourcesResolved && <TabResultItems images={jpegSources} /> }</Tab>
             <Tab eventKey="png" title="PNG">{ sourcesResolved && <TabResultItems images={pngSource} /> }</Tab>

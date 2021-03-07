@@ -1,9 +1,6 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
-
-function readableFilesize(bytes) {
-    return Math.round(bytes/1024*100)/100 + ' kiB';
-}
+import readableFilesize from './readableFilesize';
 
 function Figure(props) {
     return <img src={props.image[1].source} className="mw-100" alt={props.image[1].manifest.filename} />
@@ -20,7 +17,7 @@ function TabResultItems(props) {
                     <Figure image={image} />
                     <Carousel.Caption>
                         <a href={image[1].source} download={image[1].manifest.filename}>{image[1].manifest.filename}</a><br />
-                        Größe: {readableFilesize(image[1].manifest.filesize)}
+                        Qualität: {image[1].manifest.quality} | Größe: {readableFilesize(image[1].manifest.filesize) } kiB
                     </Carousel.Caption>
                 </Carousel.Item>    
             )}
@@ -30,7 +27,7 @@ function TabResultItems(props) {
             <Figure image={props.images} />
             <Carousel.Caption>
                 <a href={props.images[1].source} download={props.images[1].manifest.filename}> {props.images[1].manifest.filename}</a> <br />
-                Größe: {readableFilesize(props.images[1].manifest.filesize)}
+                Größe: {readableFilesize(props.images[1].manifest.filesize)} kiB
             </Carousel.Caption>
         </Carousel.Item>
     </Carousel>
