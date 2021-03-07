@@ -27,7 +27,7 @@ const handleSubmit = (props, event) => {
 
   const formdata = new FormData()
   formdata.append("datei", event.target[0].files[0]);
-  fetch('http://localhost:3001', {
+  fetch('http://localhost:' + (process.env.REACT_APP_FETCH_PORT ?? '3001'), {
       method: 'POST',
       body: formdata
     })
