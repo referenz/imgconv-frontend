@@ -19,7 +19,7 @@ function App() {
   const [outputImages, set_outputImages] = useState("");
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Container fluid className="vh-100 d-flex flex-column">
         <Row>
           <Col className="px-0">
