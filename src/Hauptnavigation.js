@@ -10,7 +10,7 @@ function Hauptnavigation() {
             <Nav.Link as={Link} to="/">Start</Nav.Link>
             <Nav.Link as={Link} to="/about">Über</Nav.Link>
             <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text className="semver justify-content-right">v0.0.1</Navbar.Text>
+                <Navbar.Text className="semver justify-content-right">v{process.env.REACT_APP_VERSION}</Navbar.Text>
             </Navbar.Collapse>
         </Navbar>
     )
