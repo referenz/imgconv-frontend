@@ -16,7 +16,7 @@ function Ueberreihe() {
         <p>Verbindung zum Backend: { (connected === false) ? 
             <Button variant="warning">nicht hergestellt</Button> : <Button variant="success">hergestellt</Button> }</p>
         <hr />
-        <p>Frontend-Code: noch nicht veröffentlicht</p>
+        <p>Frontend-Code: <a href="https://github.com/referenz/ImgConv-Frontend">https://github.com/referenz/ImgConv-Frontend</a></p>
         <p>Backend-Code: <a href="https://github.com/referenz/ImgConv-Backend">https://github.com/referenz/ImgConv-Backend</a></p>
     </Container>
 }
