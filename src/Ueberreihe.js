@@ -7,7 +7,7 @@ import { Container, Button } from 'react-bootstrap';
 function Ueberreihe() {
     const [connected, setConnected] = useState(false);
     useEffect(()=> {
-        fetch('https://' + (process.env.REACT_APP_FETCH_HOSTNAME || 'localhost') + ':' + (process.env.REACT_APP_FETCH_PORT ?? '3001'))
+        fetch('https://' + process.env.PUBLIC_URL + '/backend:' + (process.env.REACT_APP_FETCH_PORT ?? '3001'))
         .then(res => { if (res.ok && res.status === 200) setConnected(true) }, err => console.log(err))
     },[])
 
