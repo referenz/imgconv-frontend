@@ -1,3 +1,3 @@
 # ImgConv-Frontend
 
-In der Datei .env lassen sich die Variablen FETCH_HOSTNAME und FETCH_PORT festlegen.
+In der Datei .env lässt sich die Variable REACT_APP_BACKEND festlegen.
