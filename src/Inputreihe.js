@@ -22,7 +22,7 @@ const handleSubmit = (props, event) => {
           }
         }
       ];
-      props.originalImage(output);
+      props.originalImage.current = output;
   });
 
   const formdata = new FormData()
@@ -33,14 +33,14 @@ const handleSubmit = (props, event) => {
     })
     .then(res => res.formData())
     .then(d => {
-      props.outputImages(d);
+      props.outputImages.current = d;
       d.has('error') ? props.setAppState(5) : props.setAppState(6);
     });
 };
 
 const handleReset = (props, event) => {
-  props.originalImage("");
-  props.outputImages("");
+  props.originalImage.current = null;
+  props.outputImages.current = null;
   props.setAppState(0);
   
   event.target[0].nextSibling.innerText = defaultLabel;

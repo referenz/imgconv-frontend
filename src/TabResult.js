@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import TabChart from './TabChart';
 import TabResultItems from './TabResultItems';
 
 
 function TabResult(props) {
-    const [fullManifest, setFullManifest] = useState(null);
-    const [jpegSources, setJpegSources] = useState(null);
-    const [pngSource, setPngSource] = useState(null);
-    const [webpSources, setWebpSources] = useState(null);
+    const manifest = useRef(null);
+    const jpegSources = useRef(null);
+    const pngSource = useRef(null);
+    const webpSources = useRef(null);
     const [sourcesResolved, setSourcesResolved] = useState(false);
 
     useEffect(() => {
-        let manifest = [];
         async function resolve() {
-            const jpegList = new Map();
-            const webpList = new Map();
-            for (const row of props.outputImages) {
+            jpegSources.current = new Map();
+            webpSources.current = new Map();
+            for (const row of props.outputImages.current) {
                 if (row[0] === 'manifest') { 
-                    manifest= JSON.parse(row[1]);
+                    manifest.current = JSON.parse(row[1]);
                     continue;
                 }
-                if (row[0] === 'png') { 
-                    setPngSource(['png', { source: await row[1].text(), manifest: manifest.png }]);
+                if (row[0] === 'png' && manifest.current.png) { 
+                    pngSource.current = ['png', { source: await row[1].text(), manifest: manifest.current.png }];
                     continue;
                 }
-                if (row[0].startsWith('jpeg-')) {
-                    jpegList.set(row[0], { source: await row[1].text(), manifest: manifest.jpeg[row[0]] });
+                if (row[0].startsWith('jpeg-') && manifest.current.jpeg) {
+                    jpegSources.current.set(row[0], { source: await row[1].text(), manifest: manifest.current.jpeg[row[0]] });
                     continue;
                 }
-                if (row[0].startsWith('webp-')) {
-                    webpList.set(row[0], { source: await row[1].text(), manifest: manifest.webp[row[0]] });
+                if (row[0].startsWith('webp-') && manifest.current.webp) {
+                    webpSources.current.set(row[0], { source: await row[1].text(), manifest: manifest.current.webp[row[0]] });
                     continue;
                 }
             }
-            setFullManifest(manifest);
-            setJpegSources(jpegList);
-            setWebpSources(webpList);
             setSourcesResolved(true);
         }
 
@@ -45,11 +42,11 @@ function TabResult(props) {
 
     return (
         <Tabs defaultActiveKey="chart" className="sticky-top">
-            <Tab eventKey="chart" title="Auswertung">{ sourcesResolved && <TabChart manifest={fullManifest} /> }</Tab>
-            <Tab eventKey="home" title="Original"><TabResultItems images={props.originalImage} /></Tab>
-            <Tab eventKey="jpeg" title="JPEG">{ sourcesResolved && <TabResultItems images={jpegSources} /> }</Tab>
-            <Tab eventKey="png" title="PNG">{ sourcesResolved && <TabResultItems images={pngSource} /> }</Tab>
-            <Tab eventKey="webp" title="WebP">{ sourcesResolved && <TabResultItems images={webpSources} /> }</Tab>
+            <Tab eventKey="chart" title="Auswertung">{ sourcesResolved && <TabChart manifest={manifest.current} /> }</Tab>
+            <Tab eventKey="home" title="Original"><TabResultItems images={props.originalImage.current} /></Tab>
+            <Tab eventKey="jpeg" title="JPEG">{ sourcesResolved && <TabResultItems images={jpegSources.current} /> }</Tab>
+            <Tab eventKey="png" title="PNG">{ sourcesResolved && <TabResultItems images={pngSource.current} /> }</Tab>
+            <Tab eventKey="webp" title="WebP">{ sourcesResolved && <TabResultItems images={webpSources.current} /> }</Tab>
         </Tabs>
     );
 }

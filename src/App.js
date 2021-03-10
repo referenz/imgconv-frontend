@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,14 +10,12 @@ import TabInit from "./TabInit";
 import TabError from "./TabError";
 import TabLoading from "./TabLoading";
 import TabResult from "./TabResult";
-import { useState } from "react";
 
 function App() {
+  /* appState: 0 = init, 3 = warten auf Fetch-Ergebnis, 5 = Fehler beim Fetch, 6 = konvertierte Bild angekommen */
   const [appState, setAppState] = useState(0);
-  /* appState: 0 = init, 3 = warten auf Fetch-Ergebnis, 5 = Fehler, 6 = konvertierte Bild angekommen */
-
-  const [originalImage, set_originalImage] = useState("");
-  const [outputImages, set_outputImages] = useState("");
+  const originalImage = useRef(null);
+  const outputImages = useRef(null);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -38,8 +37,8 @@ function App() {
                 <Inputreihe
                   className="inputbar1"
                   setAppState={setAppState}
-                  originalImage={set_originalImage}
-                  outputImages={set_outputImages}
+                  originalImage={originalImage}
+                  outputImages={outputImages}
                 />
               </Col>
             </Row>
