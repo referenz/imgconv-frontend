@@ -1,9 +1,11 @@
 import React from 'react';
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron, Spinner } from 'react-bootstrap';
 
 
 function TabLoading() {
-    return <Jumbotron className="text-center"><img src="arrow-repeat.svg" alt="Lädt" className="loading" /></Jumbotron>
+    return <Jumbotron className="text-center">
+            <Spinner animation="border" role="status"><span className="sr-only">Lädt...</span></Spinner>
+        </Jumbotron>
 }
 
 export default TabLoading;
