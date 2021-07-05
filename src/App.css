@@ -1,79 +1,70 @@
-.navbar1 {
+nav.navbar {
   background-color: #00818b;
+  padding-left: 1rem;
 }
 
-.navbar-brand {
+nav.navbar .navbar-brand {
   color: #fff!important;
 }
 
-.navbar-brand img {
+nav.navbar .navbar-brand img {
   filter: invert(1);
 }
 
-.navbar a {
-  color: #fff;
+nav.navbar a.nav-link {
+  color: white;
   text-transform: uppercase;
 }
 
-.navbar a:hover {
-  color: #fff;
+nav.navbar a.nav-link:hover {
   text-decoration: underline;
 }
 
-.semver {
-  color: #ddd!important;
+.textcontent {
+  margin-top: 2rem;
+  text-align: center;
 }
 
-.inputbar1 {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+#submitform {
+  max-width: 40rem;
+  margin: 1rem auto 2rem;
 }
 
-.jumbotron {
-  background-color: white!important;
+#buttongroup
+{
+  margin-top: 1rem;
+  text-align: center;
 }
 
-.loading {
-  width: 25vw;
-  height: 25vh;
-  animation: rotation 2s infinite linear;
+#buttongroup button {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
+figure {
+  position: relative;
 }
 
-.carousel-caption {
+figure img {
+  max-width: 100vw;
+}
+
+figcaption {
   background-color: rgba(211,211,211, 0.5);
-  color: black!important;
+  padding: 0.7rem;
+  position: absolute;
   top: 1rem;
-  bottom: auto!important;
+  left: 1rem;
+  border-radius: 15px;
 }
 
-.carousel-caption a {
-  color: black!important;
-  text-decoration: underline;
-}
-
-.carousel-caption a:hover {
-  color: blue!important;
-}
-
-.carousel-control-next,
-.carousel-control-prev {
-    filter: invert(100%);
+figcaption a {
+  color: black;
 }
 
 a[download] {
-  content: 'testetes';
   background-image: url('file-earmark-arrow-down.svg');
-  background-position: left center;
+  background-position: left top;
   background-repeat: no-repeat;
   padding-left: 20px;
 } 
