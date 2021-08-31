@@ -29,7 +29,7 @@ function ResultItems(props: IResultItems) {
             Array.from(props.images).map(image => range.push(image[1].manifest.quality as number))
             setQuality(Math.min(...range));
         }
-    },[props.images])
+    }, [props.images])
 
     const changeQuality = (q: number) => setQuality(q);
 
@@ -39,8 +39,7 @@ function ResultItems(props: IResultItems) {
                 <Form.Text className="pe-2">Qualitätsstufe auswählen: </Form.Text> 
                 { Array.from(props.images).map(curr =>
                     <FormCheck inline type="radio" key={curr[0]} name="quality" id={curr[0]}
-                        // eslint-disable-next-line eqeqeq
-                        checked={quality == curr[1].manifest.quality }
+                        checked={quality === curr[1].manifest.quality }
                         label={curr[1].manifest.quality} value={curr[1].manifest.quality} 
                         onChange={e => changeQuality(parseInt((e.target as HTMLInputElement).value))} 
                     />
