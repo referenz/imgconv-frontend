@@ -22,7 +22,6 @@ function App() {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ReiheTopNavigation />
       <Routes>
-        <Route path="/about" element={<Ueber />} />
         <Route path="/" element={
                 <>
                   <ReiheInput originalImage={originalImage} appState={setAppState} outputImages={outputImages} />
@@ -32,6 +31,7 @@ function App() {
                   { appState === "DONE" && <ReiheResult originalImage={originalImage} outputImages={outputImages} /> }
               </>
         } />
+        <Route path="/about" element={<Ueber />} />
       </Routes>
     </BrowserRouter>
   );

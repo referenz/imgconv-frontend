@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.31",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^6.2.0"
   },
   "homepage": "/ImgConv"
 }
