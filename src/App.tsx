@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ReiheTopNavigation from './ReiheTopNavigation';
@@ -21,18 +21,18 @@ function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ReiheTopNavigation />
-      <Switch>
-        <Route path="/about">
-          <Ueber />
-        </Route>
-        <Route path="/">
-          <ReiheInput originalImage={originalImage} appState={setAppState} outputImages={outputImages} />
-          { appState === "INIT" && <ReiheInit /> }
-          { appState === "LOADING" && <ReiheLoading /> }
-          { appState === "ERROR" && <ReiheError error={outputImages} /> }
-          { appState === "DONE" && <ReiheResult originalImage={originalImage} outputImages={outputImages} /> }
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/about" element={<Ueber />} />
+        <Route path="/" element={
+                <>
+                  <ReiheInput originalImage={originalImage} appState={setAppState} outputImages={outputImages} />
+                  { appState === "INIT" && <ReiheInit /> }
+                  { appState === "LOADING" && <ReiheLoading /> }
+                  { appState === "ERROR" && <ReiheError error={outputImages} /> }
+                  { appState === "DONE" && <ReiheResult originalImage={originalImage} outputImages={outputImages} /> }
+              </>
+        } />
+      </Routes>
     </BrowserRouter>
   );
 }
