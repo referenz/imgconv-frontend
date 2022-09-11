@@ -1,6 +1,3 @@
-import { fileFragment } from "./fileFragment";
+import { FileInfos } from './FileFragment';
 
-export type inputData = [
-    string,
-    fileFragment,
-];
+export type InputData = [string, { source: string; manifest: FileInfos }];

@@ -1,1 +1,1 @@
-export type outputData = FormData;
+export type OutputData = FormData;

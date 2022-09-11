@@ -1,8 +1,7 @@
-export type fileFragment = {
-    source: string;
-    manifest: {
-        filename: string,
-        filesize: number,
-        quality?: number,
-    };
+export type FileInfos = {
+  filename: string;
+  filesize: number;
+  quality?: number;
 };
+
+export type Manifest = Record<string, FileInfos>;

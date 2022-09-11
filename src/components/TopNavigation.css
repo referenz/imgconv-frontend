@@ -1,0 +1,35 @@
+.navbar {
+  background-color: #00818b;
+  padding-left: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.navbar-brand {
+  color: #fff !important;
+  margin: 0 .5rem 0 0;
+}
+
+.navbar-brand img {
+  filter: invert(1);
+}
+
+.navbar-brand::after {
+    content: ' |';
+}
+
+
+a.nav-link {
+  color: white;
+  text-transform: uppercase;
+  padding: 0 .5rem;
+  font-weight: bold;
+}
+
+a.nav-link:link {
+    color: white !important;
+}
+
+a.nav-link:hover {
+  text-decoration: underline;
+  color: white !important;
+}
