@@ -19,13 +19,13 @@
 
 
 a.nav-link {
-  color: white;
+  color: white !important;
   text-transform: uppercase;
   padding: 0 .5rem;
   font-weight: bold;
 }
 
-a.nav-link:link, a.nav-link.active {
+a.nav-link:link, a.active {
     color: white !important;
 }
 
