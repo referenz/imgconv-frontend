@@ -5,7 +5,6 @@ import { useState } from 'react';
 function AppAbout() {
   const [connected, setConnected] = useState<boolean>(false);
   useEffect(() => {
-    console.log(process.env.REACT_APP_BACKEND);
     const fetchURL =
       process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://referenz.io/ImgConv/backend';
     fetch(fetchURL).then(

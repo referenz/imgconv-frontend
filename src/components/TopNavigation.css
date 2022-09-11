@@ -25,7 +25,7 @@ a.nav-link {
   font-weight: bold;
 }
 
-a.nav-link:link {
+a.nav-link:link, a.nav-link:active {
     color: white !important;
 }
 

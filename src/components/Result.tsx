@@ -45,8 +45,6 @@ function Result(props: { originalImage: InputData; outputImages: OutputData }) {
   }, [resolved]);
 
   if (!resolved) return null;
-  console.log(images);
-
   return (
     <Row>
       <Col xs={4} sm={3} md={2}>
