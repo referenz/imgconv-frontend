@@ -17,7 +17,7 @@ function AppAbout() {
   }, []);
 
   return (
-    <Container fluid as={'main'} className='textcontent'>
+    <Container fluid as={'main'}>
       <h1>ImgConv: Bilder online konvertieren</h1>
       <p>
         Verbindung zum Backend:{' '}
@@ -30,7 +30,7 @@ function AppAbout() {
       <hr />
       <p>
         Frontend-Code:{' '}
-        <a href='https://github.com/referenz/ImgConv-Frontend'>https://github.com/referenz/ImgConv-Frontend</a>
+        <a href='https://github.com/referenz/imgconv-frontend'>https://github.com/referenz/imgconv-frontend</a>
       </p>
       <p>
         Backend-Code:{' '}
