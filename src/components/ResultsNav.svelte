@@ -1,7 +1,7 @@
 <script lang="ts">
   export let handlers: string[][];
 
-  // Deep Clone des Arrays; wenn das nicht passiert, werden Daten in Eltern-
+  // Deep Clone des Arrays. Wenn das nicht passiert, werden Daten in Eltern-
   // und Geschwisterkomponenten verändern. Grund dafür ist mir unklar.
   const myHandlers = JSON.parse(JSON.stringify(handlers));
 
