@@ -21,21 +21,21 @@
     const bgcolor: string[] = [];
 
     // Inputfile
-    if (showOriginal === true) {
+    if (showOriginal) {
       labels.push("Originaldatei");
       sizes.push(manifest.inputfile.filesize);
       bgcolor.push("rgba(136, 140, 160, 0.5)");
     }
 
     // PNG
-    if (showPNG === true) {
+    if (showPNG) {
       labels.push("PNG");
       sizes.push(manifest.png.filesize);
       bgcolor.push("rgba(60, 239, 57, 0.5)");
     }
 
     // WebP nearLossless
-    if (showWebPNL === true) {
+    if (showWebPNL) {
       labels.push("WebP nearLossless");
       sizes.push(manifest["webp-nearlossless"].filesize);
       bgcolor.push("rgba(57, 87, 239, 0.5)");
@@ -67,7 +67,7 @@
   Chart.register(...registerables);
 
   onMount(() => {
-    myChart = new Chart(myCanvas as HTMLCanvasElement, {
+    myChart = new Chart(myCanvas, {
       type: "bar",
       data: {
         // Original, JPEG, PNG, WebP

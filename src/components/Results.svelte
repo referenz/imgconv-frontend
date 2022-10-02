@@ -1,10 +1,7 @@
 <script lang="ts">
-  import { afterUpdate } from "svelte";
   import type {
     FileInfos,
     InputData,
-    Manifest,
-    OutputData,
   } from "../utils/types";
   import Charts from "./Charts.svelte";
   import ImgFigure from "./ImgFigure.svelte";
@@ -39,7 +36,7 @@
     return [format, quality, handler];
   });
 
-  let responseImgInfos: Map<string, FileInfos> = new Map();
+  let responseImgInfos = new Map<string, FileInfos>();
   responseImgInfos.set("inputfile", originalImage[1].manifest);
 </script>
 

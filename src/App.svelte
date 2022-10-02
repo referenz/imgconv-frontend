@@ -6,9 +6,9 @@
   import { globalState } from "./utils/state";
   import type { InputData, OutputData } from './utils/types';
 
-  let originalImage: InputData = null;
-  let outputImages: OutputData = null;
-  let key: string = null;
+  let originalImage: InputData;
+  let outputImages: OutputData;
+  let key: string;
 </script>
 
 <TopNavigation />

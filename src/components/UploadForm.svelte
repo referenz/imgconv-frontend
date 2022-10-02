@@ -1,6 +1,6 @@
 <script lang="ts">
   import { globalState } from "../utils/state";
-  import type { InputData, OutputData } from "../utils/types";
+  import type { InputData } from "../utils/types";
 
   export let originalImage: InputData;
   export let key: string;
@@ -17,7 +17,7 @@
   }
 
   function drop(e: DragEvent) {
-    if (!e.dataTransfer) throw new Error("e.dataTransfer");
+    if (!e.dataTransfer) throw new Error('Drop Event gescheitert');
     (e.target as HTMLLabelElement).innerText = e.dataTransfer.files[0].name;
     submitFile(e.dataTransfer.files[0]);
   }
@@ -30,7 +30,10 @@
         (e.target as HTMLInputElement).files?.[0].name ?? "";
     }
 
-    submitFile((e.target as HTMLInputElement).files?.[0]);
+    // Ohne umkopieren scheint die strikte Typenprüfen hier nicht zu funktioniren
+    const input = e.target as HTMLInputElement;
+    if ((input).files?.[0]) submitFile(input.files[0]);
+    else throw new Error('keine Datei im Inputfeld hinterlegt');
   }
 
   function submitFile(file: File) {
@@ -58,6 +61,7 @@
         ? "http://localhost:3001"
         : "https://referenz.io/ImgConv/backend";
 
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       fetch(`${fetchURL}/storeimage`, {
         method: "POST",
         body: formdata,
@@ -65,6 +69,7 @@
         .then((res) => res.json())
         .then(res => {
           globalState.set("RESULTS");
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           key = res.handler
         });
 

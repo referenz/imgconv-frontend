@@ -52,7 +52,7 @@
   }
   figcaption a[download] {
     color: inherit;
-    background-image: url("file-earmark-arrow-down.svg");
+    background-image: url(../assets/file-earmark-arrow-down.svg);
     background-position: left top;
     background-repeat: no-repeat;
     padding-left: 20px;

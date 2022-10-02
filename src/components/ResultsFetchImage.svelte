@@ -26,12 +26,13 @@
     const formdata = await response.formData();
 
     fetchedImage = await (formdata.get("file") as File).text();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/await-thenable
     manifest = JSON.parse(await formdata.get("manifest")?.toString() ?? '');
 
     responseImgInfos.set(handler, manifest)
     resolved = true;
   }
-  resolve();
+  void resolve();
 
   afterUpdate(() => responseImgInfos = responseImgInfos);
 </script>

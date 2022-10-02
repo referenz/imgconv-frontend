@@ -3,13 +3,14 @@
 
   // Deep Clone des Arrays. Wenn das nicht passiert, werden Daten in Eltern-
   // und Geschwisterkomponenten verändern. Grund dafür ist mir unklar.
-  const myHandlers = JSON.parse(JSON.stringify(handlers));
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  handlers = JSON.parse(JSON.stringify(handlers));
 
   let webps: string[][] = [];
   let jpegs: string[][] = [];
   let rest: string[][] = [];
 
-  myHandlers.forEach((handler: string[]) => {
+  handlers.forEach((handler: string[]) => {
     if (handler[0] === "webp") webps.push(handler);
     else if (handler[0] === "jpeg") jpegs.push(handler);
     else rest.push(handler);

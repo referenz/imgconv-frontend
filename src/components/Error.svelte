@@ -2,7 +2,7 @@
     import { globalState } from '../utils/state';
     import type { OutputData } from '../utils/types';
     export let output: OutputData;
-    const error = output?.get('error') as string ?? 'unbekannter Fehler';
+    const error = output.get('error')?.toString() ?? 'unbekannter Fehler';
 </script>
 
 <h2>Fehler</h2>

@@ -4,8 +4,8 @@
 
 <header class="navbar justify-content-start ps-3">
   <span class="navbar-brand"><img src={Images} alt="" /> ImgConv{' '}</span>
-  <a class="nav-link" href="/">Start</a>
-  <a class="nav-link" href="/about">Über</a>
+  <a class="nav-link" href={`${import.meta.env.BASE_URL}`}>Start</a>
+  <a class="nav-link" href={`${import.meta.env.BASE_URL}about`}>Über</a>
 </header>
 
 <style>
