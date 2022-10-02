@@ -1,6 +1,16 @@
-.navbar {
+<script lang="ts">
+  import Images from '/images.svg';
+</script>
+
+<header class="navbar justify-content-start ps-3">
+  <span class="navbar-brand"><img src={Images} alt="" /> ImgConv{' '}</span>
+  <a class="nav-link" href="/">Start</a>
+  <a class="nav-link" href="/about">Über</a>
+</header>
+
+<style>
+  .navbar {
   background-color: #00818b;
-  padding-left: 1rem;
   border-bottom: 1px solid black;
 }
 
@@ -25,7 +35,7 @@ a.nav-link {
   font-weight: bold;
 }
 
-a.nav-link:link, a.active {
+a.nav-link:link, a:active {
     color: white !important;
 }
 
@@ -33,3 +43,4 @@ a.nav-link:hover {
   text-decoration: underline;
   color: white !important;
 }
+</style>
