@@ -20,8 +20,6 @@
     if(entry[2] === 'png') entry[2] = 'PNG';
     else if(entry[2] === 'webp-nearlossless') entry[2] = 'WebP nearlossless';
   })
-  console.log(rest);
-
 </script>
 
 <ul id="bildernav">
