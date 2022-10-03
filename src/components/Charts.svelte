@@ -1,10 +1,9 @@
 <script lang="ts">
   import { Chart, registerables } from "chart.js";
   import readableFileSize from "../utils/readableFileSize";
-  import { beforeUpdate, onMount } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
   import type { FileInfos, Manifest } from "../utils/types";
 
-  //export let manifest: Manifest;
   export let responseImgInfos: Map<string, FileInfos>;
 
   let myCanvas: HTMLCanvasElement;
@@ -97,9 +96,8 @@
     });
   });
 
-  beforeUpdate(() => {
+  afterUpdate(() => {
     const [labels, data, bgcolor] = fillData(manifest);
-    if (myChart) {
       myChart.data = {
         labels,
         datasets: [
@@ -112,7 +110,7 @@
       };
       myChart.update();
     }
-  });
+  );
 </script>
 
 <canvas bind:this={myCanvas} />

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { beforeUpdate } from "svelte";
   import { fetchURL } from "../utils/fetchUrlProvider";
 
-  let connected = false;
-  beforeUpdate(async () => {
-    const response = await fetch(`${fetchURL as string}/`);
-    if (response.ok && response.status === 200) connected = true;
-  });
+  $: connected = false;
+  fetch(`${fetchURL as string}/`)
+    .then((response) => {
+      if (response.ok && response.status === 200) connected = true;
+    })
+    .catch(() => (connected = false));
 </script>
 
 <h1>ImgConv: Bilder online konvertieren</h1>
@@ -20,8 +20,12 @@
 </p>
 <hr />
 <p>
-  Frontend-Code: <a href="https://github.com/referenz/imgconv-frontend">https://github.com/referenz/imgconv-frontend</a>
+  Frontend-Code: <a href="https://github.com/referenz/imgconv-frontend"
+    >https://github.com/referenz/imgconv-frontend</a
+  >
 </p>
 <p>
-  Backend-Code: <a href="https://github.com/referenz/imgconv-backend">https://github.com/referenz/imgconv-backend</a>
+  Backend-Code: <a href="https://github.com/referenz/imgconv-backend"
+    >https://github.com/referenz/imgconv-backend</a
+  >
 </p>
