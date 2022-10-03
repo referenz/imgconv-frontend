@@ -68,7 +68,6 @@
       {/each}
     </ul>
   </li>
-  <li><a class="loading">blablabla</a></li>
   <li>
     <a href="#chart">Vergleichschart</a>
   </li>
