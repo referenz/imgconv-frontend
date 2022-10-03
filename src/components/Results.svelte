@@ -42,7 +42,7 @@
 
 <div class="row">
   <div class="col-xs-4 col-sm-3 col-md-2">
-    <ResultsNav handlers={requestImages} />
+    <ResultsNav handlers={requestImages} {responseImgInfos} />
   </div>
 
   <div class="col">
