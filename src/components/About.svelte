@@ -4,7 +4,7 @@
 
   let connected = false;
   beforeUpdate(async () => {
-    const response = await fetch(fetchURL as string);
+    const response = await fetch(`${fetchURL as string}/`);
     if (response.ok && response.status === 200) connected = true;
   });
 </script>
