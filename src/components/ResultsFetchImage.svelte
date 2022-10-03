@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { afterUpdate } from "svelte";
   import Loading from "./Loading.svelte";
   import type { FileInfos } from "../utils/types";
   import ImgFigure from "./ImgFigure.svelte";
-  import { afterUpdate } from "svelte";
+  import { fetchURL } from "../utils/fetchUrlProvider";
 
   export let key: string;
   export let format: string;
@@ -16,25 +17,22 @@
   let resolved = false;
 
   async function resolve() {
-    const fetchURL = import.meta.env.DEV
-      ? "http://localhost:3001"
-      : "https://referenz.io/ImgConv/backend";
-
     let response: Response;
-    if(quality) response = await fetch(`${fetchURL}/${key}/${format}/${quality}`);
-    else response = await fetch(`${fetchURL}/${key}/${format}`);
+    if (quality)
+      response = await fetch(`${fetchURL as string}/${key}/${format}/${quality}`);
+    else response = await fetch(`${fetchURL as string}/${key}/${format}`);
     const formdata = await response.formData();
 
     fetchedImage = await (formdata.get("file") as File).text();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/await-thenable
-    manifest = JSON.parse(await formdata.get("manifest")?.toString() ?? '');
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    manifest = (JSON.parse((await formdata.get("manifest")?.toString()) ?? "")) as FileInfos;
 
-    responseImgInfos.set(handler, manifest)
+    responseImgInfos.set(handler, manifest);
     resolved = true;
   }
   void resolve();
 
-  afterUpdate(() => responseImgInfos = responseImgInfos);
+  afterUpdate(() => (responseImgInfos = responseImgInfos));
 </script>
 
 {#if resolved}
@@ -42,4 +40,3 @@
 {:else}
   <Loading />
 {/if}
-

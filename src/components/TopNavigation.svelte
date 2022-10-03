@@ -1,46 +1,47 @@
 <script lang="ts">
-  import Images from '/images.svg';
+  import { links } from "svelte-routing";
+  import Images from "/images.svg";
 </script>
 
-<header class="navbar justify-content-start ps-3">
-  <span class="navbar-brand"><img src={Images} alt="" /> ImgConv{' '}</span>
+<header class="navbar justify-content-start ps-3" use:links>
+  <span class="navbar-brand"><img src={Images} alt="" /> ImgConv{" "}</span>
   <a class="nav-link" href={`${import.meta.env.BASE_URL}`}>Start</a>
   <a class="nav-link" href={`${import.meta.env.BASE_URL}about`}>Über</a>
 </header>
 
 <style>
   .navbar {
-  background-color: #00818b;
-  border-bottom: 1px solid black;
-}
+    background-color: #00818b;
+    border-bottom: 1px solid black;
+  }
 
-.navbar-brand {
-  color: #fff !important;
-  margin: 0 .5rem 0 0;
-}
+  .navbar-brand {
+    color: #fff !important;
+    margin: 0 0.5rem 0 0;
+  }
 
-.navbar-brand img {
-  filter: invert(1);
-}
+  .navbar-brand img {
+    filter: invert(1);
+  }
 
-.navbar-brand::after {
-    content: ' |';
-}
+  .navbar-brand::after {
+    content: " |";
+  }
 
-
-a.nav-link {
-  color: white !important;
-  text-transform: uppercase;
-  padding: 0 .5rem;
-  font-weight: bold;
-}
-
-a.nav-link:link, a:active {
+  a.nav-link {
     color: white !important;
-}
+    text-transform: uppercase;
+    padding: 0 0.5rem;
+    font-weight: bold;
+  }
 
-a.nav-link:hover {
-  text-decoration: underline;
-  color: white !important;
-}
+  a.nav-link:link,
+  a:active {
+    color: white !important;
+  }
+
+  a.nav-link:hover {
+    text-decoration: underline;
+    color: white !important;
+  }
 </style>

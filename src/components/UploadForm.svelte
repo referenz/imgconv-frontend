@@ -1,6 +1,7 @@
 <script lang="ts">
   import { globalState } from "../utils/state";
   import type { InputData } from "../utils/types";
+  import { fetchURL } from "../utils/fetchUrlProvider";
 
   export let originalImage: InputData;
   export let key: string;
@@ -17,7 +18,7 @@
   }
 
   function drop(e: DragEvent) {
-    if (!e.dataTransfer) throw new Error('Drop Event gescheitert');
+    if (!e.dataTransfer) throw new Error("Drop Event gescheitert");
     (e.target as HTMLLabelElement).innerText = e.dataTransfer.files[0].name;
     submitFile(e.dataTransfer.files[0]);
   }
@@ -32,8 +33,8 @@
 
     // Ohne umkopieren scheint die strikte Typenprüfen hier nicht zu funktioniren
     const input = e.target as HTMLInputElement;
-    if ((input).files?.[0]) submitFile(input.files[0]);
-    else throw new Error('keine Datei im Inputfeld hinterlegt');
+    if (input.files?.[0]) submitFile(input.files[0]);
+    else throw new Error("keine Datei im Inputfeld hinterlegt");
   }
 
   function submitFile(file: File) {
@@ -57,34 +58,17 @@
 
       const formdata = new FormData();
       formdata.append("datei", file);
-      const fetchURL = import.meta.env.DEV
-        ? "http://localhost:3001"
-        : "https://referenz.io/ImgConv/backend";
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      fetch(`${fetchURL}/storeimage`, {
+      fetch(`${fetchURL as string}/storeimage`, {
         method: "POST",
         body: formdata,
       })
         .then((res) => res.json())
-        .then(res => {
-          globalState.set("RESULTS");
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          key = res.handler
-        });
-
-      /*
-      fetch(fetchURL, {
-        method: "POST",
-        body: formdata,
-      })
-        .then((res) => res.formData())
-        .then((d) => {
-          outputImages = d;
-          d.has("error") ? globalState.set("ERROR") : globalState.set("DONE");
+        .then((res: { success: boolean; handler: string }) => {
+          res.success ? globalState.set("RESULTS"): globalState.set('ERROR');
+          key = res.handler;
         })
-        .catch(() => globalState.set("ERROR"));
-      */
+        .catch(() => globalState.set('ERROR'));
     });
   }
 </script>

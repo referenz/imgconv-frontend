@@ -3,8 +3,7 @@
 
   // Deep Clone des Arrays. Wenn das nicht passiert, werden Daten in Eltern-
   // und Geschwisterkomponenten verändern. Grund dafür ist mir unklar.
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  handlers = JSON.parse(JSON.stringify(handlers));
+  handlers = JSON.parse(JSON.stringify(handlers)) as string[][];
 
   let webps: string[][] = [];
   let jpegs: string[][] = [];
@@ -16,9 +15,9 @@
     else rest.push(handler);
   });
 
-  rest.map(entry => {
-    if(entry[2] === 'png') entry[2] = 'PNG';
-    else if(entry[2] === 'webp-nearlossless') entry[2] = 'WebP nearlossless';
+  rest.forEach(entry => {
+    if(entry[0] === 'png') entry[0] = 'PNG';
+    else if(entry[0] === 'webp-nearlossless') entry[0] = 'WebP nearlossless';
   })
 </script>
 
@@ -27,7 +26,7 @@
     <a href="#inputfile">Original</a>
   </li>
   {#each rest as image}
-    <li><a href={`#${image[0]}`}>{image[2]}</a></li>
+    <li><a href={`#${image[2]}`}>{image[0]}</a></li>
   {/each}
   <li>
     WebP

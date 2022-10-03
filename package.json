@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.1",
-    "chart.js": "^3.9.1"
+    "chart.js": "^3.9.1",
+    "svelte-routing": "^1.6.0"
   }
 }
