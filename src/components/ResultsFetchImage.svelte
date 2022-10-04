@@ -6,30 +6,21 @@
 
   export let key: string;
   export let format: string;
-  export let quality: string | null = null;
+  export let quality: string;
   export let handler: string;
   export let responseImgInfos: Map<string, FileInfos>;
 
   async function fetchImage(): Promise<[string, FileInfos]> {
-    let fetchedImage: string;
-    let manifest: FileInfos;
-
-    let response: Response;
-    if (quality && quality !== '')
-      response = await fetch(
-        `${fetchURL as string}/${key}/${format}/${quality}`
-      );
-    else response = await fetch(`${fetchURL as string}/${key}/${format}`);
+    quality &&= `/${quality}`;
+    const response = await fetch(`${fetchURL}/${key}/${format}${quality}`);
     const formdata = await response.formData();
 
-    fetchedImage = await (formdata.get("file") as File).text();
-    manifest = JSON.parse(
-      formdata.get("manifest")?.toString() ?? ""
-    ) as FileInfos;
+    const fetchedImage = await (formdata.get("file") as File).text();
+    const manifest = JSON.parse(formdata.get("manifest")?.toString() ?? "") as FileInfos;
 
     responseImgInfos.set(handler, manifest);
     responseImgInfos = responseImgInfos;
-    console.log(manifest);
+
     return [fetchedImage, manifest];
   }
 </script>

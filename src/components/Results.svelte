@@ -8,7 +8,7 @@
   export let originalImage: InputData;
   export let key: string;
 
-  let formats = [
+  const formats = [
     "png",
     "webp-lossless",
     "webp-70",
@@ -20,7 +20,7 @@
     "jpeg-80",
     "jpeg-85",
   ];
-  let requestImages = formats.map((entry) => {
+  const requestImages = formats.map((entry) => {
     let [format, quality] = entry.split("-");
     if (format === "webp" && quality === "lossless") {
       format = "webp-nearlossless";
