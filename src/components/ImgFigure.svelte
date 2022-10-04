@@ -2,31 +2,30 @@
   import type { FileInfos } from "../utils/types";
   import readableFileSize from "../utils/readableFileSize";
 
-  export let image: [
-    handler: string,
-    fileinfos: { fileinfos?: FileInfos; source: string }
-  ];
+  export let handler: string;
+  export let manifest: FileInfos;
+  export let source: string;
 </script>
 
 <figure class="figure">
   <img
     class="figure-img img-fluid"
-    id={image[0]}
-    src={image[1].source}
-    alt={image[1].fileinfos?.filename}
+    id={handler}
+    src={source}
+    alt={manifest.filename}
   />
   <figcaption class="figure-caption">
-    <a href={image[1].source} download={image[1].fileinfos?.filename}>
-      {image[1].fileinfos?.filename}
+    <a href={source} download={manifest.filename}>
+      {manifest.filename}
     </a>
     <br />
-    {#if image[0] === 'inputfile'}
+    {#if handler === "inputfile"}
       Originaldatei |
     {/if}
-    {#if image[1].fileinfos?.quality}
-      Qualität: {image[1].fileinfos.quality} |
+    {#if manifest.quality}
+      Qualität: {manifest.quality} |
     {/if}
-    Größe: {readableFileSize(image[1].fileinfos?.filesize ?? 0)} kiB
+    Größe: {readableFileSize(manifest.filesize)} kiB
   </figcaption>
 </figure>
 
@@ -52,7 +51,7 @@
   }
   figcaption a[download] {
     color: inherit;
-    background-image: url('../assets/file-earmark-arrow-down.svg');
+    background-image: url("../assets/file-earmark-arrow-down.svg");
     background-position: left top;
     background-repeat: no-repeat;
     padding-left: 20px;

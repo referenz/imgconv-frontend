@@ -1,8 +1,5 @@
 <script lang="ts">
-  import type {
-    FileInfos,
-    InputData,
-  } from "../utils/types";
+  import type { FileInfos, InputData } from "../utils/types";
   import Charts from "./Charts.svelte";
   import ImgFigure from "./ImgFigure.svelte";
   import Loading from "./Loading.svelte";
@@ -27,7 +24,7 @@
     let [format, quality] = entry.split("-");
     if (format === "webp" && quality === "lossless") {
       format = "webp-nearlossless";
-      quality = '';
+      quality = "";
     }
 
     let handler = format;
@@ -48,22 +45,18 @@
   <div class="col">
     <div class="row">
       <ImgFigure
-        image={[
-          "inputfile",
-          {
-            fileinfos: originalImage[1].manifest,
-            source: originalImage[1].source,
-          },
-        ]}
+        handler="inputfile"
+        manifest={originalImage[1].manifest}
+        source={originalImage[1].source}
       />
     </div>
-    {#each requestImages as image}
+    {#each requestImages as [format, quality, handler]}
       <div class="row">
         <ResultsFetchImage
           {key}
-          format={image[0]}
-          quality={image[1]}
-          handler={image[2]}
+          {format}
+          {quality}
+          {handler}
           bind:responseImgInfos
         />
       </div>

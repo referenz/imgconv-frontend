@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { afterUpdate } from "svelte";
   import Loading from "./Loading.svelte";
   import type { FileInfos } from "../utils/types";
   import ImgFigure from "./ImgFigure.svelte";
@@ -11,32 +10,32 @@
   export let handler: string;
   export let responseImgInfos: Map<string, FileInfos>;
 
-  let fetchedImage: string;
-  let manifest: FileInfos;
+  async function fetchImage(): Promise<[string, FileInfos]> {
+    let fetchedImage: string;
+    let manifest: FileInfos;
 
-  let resolved = false;
-
-  async function resolve() {
     let response: Response;
-    if (quality)
-      response = await fetch(`${fetchURL as string}/${key}/${format}/${quality}`);
+    if (quality && quality !== '')
+      response = await fetch(
+        `${fetchURL as string}/${key}/${format}/${quality}`
+      );
     else response = await fetch(`${fetchURL as string}/${key}/${format}`);
     const formdata = await response.formData();
 
     fetchedImage = await (formdata.get("file") as File).text();
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-    manifest = (JSON.parse((await formdata.get("manifest")?.toString()) ?? "")) as FileInfos;
+    manifest = JSON.parse(
+      formdata.get("manifest")?.toString() ?? ""
+    ) as FileInfos;
 
     responseImgInfos.set(handler, manifest);
-    resolved = true;
+    responseImgInfos = responseImgInfos;
+    console.log(manifest);
+    return [fetchedImage, manifest];
   }
-  void resolve();
-
-  afterUpdate(() => (responseImgInfos = responseImgInfos));
 </script>
 
-{#if resolved}
-  <ImgFigure image={[handler, { fileinfos: manifest, source: fetchedImage }]} />
-{:else}
+{#await fetchImage()}
   <Loading />
-{/if}
+{:then [source, manifest]}
+  <ImgFigure {handler} {source} {manifest} />
+{/await}

@@ -2,17 +2,10 @@
   import type { FileInfos } from "src/utils/types";
 
   export let handlers: string[][];
-
-  // Für den Versuch mit Klassennamen je nach Ladezustand
   export let responseImgInfos: Map<string, FileInfos>;
-  console.log(responseImgInfos);
 
-  // Deep Clone des Arrays. Wenn das nicht passiert, werden Daten in Eltern-
-  // und Geschwisterkomponenten verändern. Grund dafür ist mir unklar.
-  handlers = JSON.parse(JSON.stringify(handlers)) as string[][];
-
-  let webps: string[][] = [];
-  let jpegs: string[][] = [];
+  const webps: string[][] = [];
+  const jpegs: string[][] = [];
   let rest: string[][] = [];
 
   handlers.forEach((handler: string[]) => {
@@ -21,6 +14,8 @@
     else rest.push(handler);
   });
 
+  // Deep Clone des Arrays, weil sich sont die Werte in den anderen Komponenten ändern.
+  rest = JSON.parse(JSON.stringify(rest)) as string[][];
   rest.forEach((entry) => {
     if (entry[0] === "png") entry[0] = "PNG";
     else if (entry[0] === "webp-nearlossless") entry[0] = "WebP nearlossless";
@@ -31,24 +26,24 @@
   <li>
     <a href="#inputfile">Original</a>
   </li>
-  {#each rest as image}
+  {#each rest as [name,,handler]}
     <li>
       <a
-        href={`#${image[2]}`}
-        class={responseImgInfos.has(image[2]) ? "done" : "loading"}
-        >{image[0]}</a
+        href={`#${handler}`}
+        class={responseImgInfos.has(handler) ? "done" : "loading"}
+        >{name}</a
       >
     </li>
   {/each}
   <li>
     WebP
     <ul class="secondhier">
-      {#each webps as image}
+      {#each webps as [, quality, handler]}
         <li>
           <a
-            href={`#${image[2]}`}
-            class={responseImgInfos.has(image[2]) ? "done" : "loading"}
-            >Qualität: {image[1]}</a
+            href={`#${handler}`}
+            class={responseImgInfos.has(handler) ? "done" : "loading"}
+            >Qualität: {quality}</a
           >
         </li>
       {/each}
@@ -57,12 +52,12 @@
   <li>
     JPEG
     <ul class="secondhier">
-      {#each jpegs as image}
+      {#each jpegs as [, quality, handler]}
         <li>
           <a
-            href={`#${image[2]}`}
-            class={responseImgInfos.has(image[2]) ? "done" : "loading"}
-            >Qualität: {image[1]}</a
+            href={`#${handler}`}
+            class={responseImgInfos.has(handler) ? "done" : "loading"}
+            >Qualität: {quality}</a
           >
         </li>
       {/each}
