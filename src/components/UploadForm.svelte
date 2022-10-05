@@ -59,7 +59,7 @@
       const formdata = new FormData();
       formdata.append("datei", file);
 
-      fetch(`${fetchURL as string}/storeimage`, {
+      fetch(`${fetchURL}/storeimage`, {
         method: "POST",
         body: formdata,
       })

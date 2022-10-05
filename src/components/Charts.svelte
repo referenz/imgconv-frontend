@@ -22,21 +22,21 @@
     // Inputfile
     if (showOriginal) {
       labels.push("Originaldatei");
-      sizes.push(manifest.inputfile.filesize);
+      sizes.push(manifest.inputfile?.filesize);
       bgcolor.push("rgba(136, 140, 160, 0.5)");
     }
 
     // PNG
     if (showPNG) {
       labels.push("PNG");
-      sizes.push(manifest.png.filesize);
+      sizes.push(manifest.png?.filesize);
       bgcolor.push("rgba(60, 239, 57, 0.5)");
     }
 
     // WebP nearLossless
     if (showWebPNL) {
       labels.push("WebP nearLossless");
-      sizes.push(manifest["webp-nearlossless"].filesize);
+      sizes.push(manifest["webp-nearlossless"]?.filesize);
       bgcolor.push("rgba(57, 87, 239, 0.5)");
     }
 
@@ -44,8 +44,8 @@
     for (const jpeg of Object.entries(manifest).filter((entry) =>
       entry[0].startsWith("jpeg-q")
     )) {
-      labels.push(`JPEG, Q ${jpeg[1].quality as number}`);
-      sizes.push(jpeg[1].filesize);
+      labels.push(`JPEG, Q ${jpeg[1]?.quality}`);
+      sizes.push(jpeg[1]?.filesize);
       bgcolor.push("rgba(239, 145, 57, 0.5)");
     }
 
@@ -53,8 +53,8 @@
     for (const webp of Object.entries(manifest).filter((entry) =>
       entry[0].startsWith("webp-q")
     )) {
-      labels.push(`WebP, Q ${webp[1].quality as number}`);
-      sizes.push(webp[1].filesize);
+      labels.push(`WebP, Q ${webp[1]?.quality}`);
+      sizes.push(webp[1]?.filesize);
       bgcolor.push("rgba(57, 87, 239, 0.5)");
     }
 

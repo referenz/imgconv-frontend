@@ -2,7 +2,7 @@
   import type { FileInfos } from "src/utils/types";
 
   export let handlers: string[][];
-  export let responseImgInfos: Map<string, FileInfos>;
+  export let responseImgInfos: Map<string, FileInfos | null>;
 
   const webps: string[][] = [];
   const jpegs: string[][] = [];

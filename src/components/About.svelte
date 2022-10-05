@@ -2,7 +2,7 @@
   import { fetchURL } from "../utils/fetchUrlProvider";
 
   $: connected = false;
-  fetch(`${fetchURL as string}/`)
+  fetch(fetchURL + "/")
     .then((response) => {
       if (response.ok && response.status === 200) connected = true;
     })

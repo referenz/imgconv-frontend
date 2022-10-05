@@ -18,7 +18,7 @@
     "jpeg-70",
     "jpeg-75",
     "jpeg-80",
-    "jpeg-85",
+    "jpeg-85", "blabla"
   ];
   const requestImages = formats.map((entry) => {
     let [format, quality] = entry.split("-");
