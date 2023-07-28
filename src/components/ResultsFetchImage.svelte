@@ -3,7 +3,6 @@
   import type { ErrorMsg, FileInfos } from "../utils/types";
   import ImgFigure from "./ImgFigure.svelte";
   import { fetchURL } from "../utils/fetchUrlProvider";
-  import { globalState } from "../utils/state";
 
   export let key: string;
   export let format: string;
@@ -20,8 +19,7 @@
     if (formdata.has("error")) {
       responseImgInfos.set(handler, null);
       responseImgInfos = responseImgInfos;
-      //globalState.set("ERROR"); // vielleicht besser unten mit `{:catch} abfangen`
-      return Promise.reject((JSON.parse(formdata.get("error")!.toString()) as ErrorMsg).message);
+      return Promise.reject((JSON.parse(formdata.get("error")?.toString() ?? 'Fehler') as ErrorMsg).message);
     }
 
     const fetchedImage = await (formdata.get("file") as File).text();

@@ -3,7 +3,7 @@
 
   $: connected = false;
   fetch(fetchURL + "/")
-    .then((response) => {
+    .then(response => {
       if (response.ok && response.status === 200) connected = true;
     })
     .catch(() => (connected = false));
@@ -20,12 +20,8 @@
 </p>
 <hr />
 <p>
-  Frontend-Code: <a href="https://github.com/referenz/imgconv-frontend"
-    >https://github.com/referenz/imgconv-frontend</a
-  >
+  Frontend-Code: <a href="https://github.com/referenz/imgconv-frontend">https://github.com/referenz/imgconv-frontend</a>
 </p>
 <p>
-  Backend-Code: <a href="https://github.com/referenz/imgconv-backend"
-    >https://github.com/referenz/imgconv-backend</a
-  >
+  Backend-Code: <a href="https://github.com/referenz/imgconv-backend">https://github.com/referenz/imgconv-backend</a>
 </p>

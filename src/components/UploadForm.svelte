@@ -31,7 +31,7 @@
         (e.target as HTMLInputElement).files?.[0].name ?? "";
     }
 
-    // Ohne umkopieren scheint die strikte Typenprüfen hier nicht zu funktioniren
+    // Ohne umkopieren scheint die strikte Typenprüfung hier nicht zu funktioniren
     const input = e.target as HTMLInputElement;
     if (input.files?.[0]) submitFile(input.files[0]);
     else throw new Error("keine Datei im Inputfeld hinterlegt");
