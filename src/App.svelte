@@ -6,16 +6,15 @@
   import Error from "./components/Error.svelte";
   import { globalState } from "./utils/state";
   import About from "./components/About.svelte";
+  import type { OriginalImage } from "./utils/types";
 
   let error: string;
   let originalImage: OriginalImage;
 
   import io from 'socket.io-client'
 
-  const host = (import.meta.env.PROD) ? 'wss://referenz.io/imgconv-backend' : 'ws://localhost';
-
-  import type { OriginalImage } from "./utils/types";
-  let socket = io(`${host}:3001`)
+  const host = (import.meta.env.PROD) ? 'wss://referenz.io/imgconv-backend' : 'ws://localhost:3001';
+  let socket = io(host);
 
   socket.on("upload-successful", () => { globalState.set("RESULTS"); })
   socket.on("error", msg => {
