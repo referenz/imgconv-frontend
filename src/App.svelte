@@ -12,7 +12,7 @@
 
   import io from 'socket.io-client'
 
-  const host = (import.meta.env.PROD) ? 'ws://referenz.io/imgconv-backend' : 'we://localhost';
+  const host = (import.meta.env.PROD) ? 'wss://referenz.io/imgconv-backend' : 'ws://localhost';
 
   import type { OriginalImage } from "./utils/types";
   let socket = io(`${host}:3001`)
