@@ -11,8 +11,11 @@
   let originalImage: OriginalImage;
 
   import io from 'socket.io-client'
+
+  const host = (import.meta.env.PROD) ? '0.0.0.0' : 'localhost';
+
   import type { OriginalImage } from "./utils/types";
-  let socket = io("ws://localhost:3001")
+  let socket = io(`ws://${host}:3001`)
 
   socket.on("upload-successful", () => { globalState.set("RESULTS"); })
   socket.on("error", msg => {
