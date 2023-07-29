@@ -5,27 +5,35 @@
   import Results from "./components/Results.svelte";
   import Error from "./components/Error.svelte";
   import { globalState } from "./utils/state";
-  import type { InputData, OutputData } from "./utils/types";
   import About from "./components/About.svelte";
 
-  export let url = "";
+  let error: string;
+  let originalImage: OriginalImage;
 
-  let originalImage: InputData;
-  let outputImages: OutputData;
-  let key: string;
+  import io from 'socket.io-client'
+  import type { OriginalImage } from "./utils/types";
+  let socket = io("ws://localhost:3001")
+
+  socket.on("upload-successful", () => { globalState.set("RESULTS"); })
+  socket.on("error", msg => {
+    error = msg as string;
+    globalState.set("ERROR")
+  })
+
+  export let url = "";
 </script>
 
 <Router url={url} basepath={import.meta.env.BASE_URL}>
   <TopNavigation />
   <main class="container-fluid">
-    <Route path="about" component={About} />
+    <Route path="about"><About bind:socket /></Route>
     <Route path="/">
       {#if $globalState === "INIT"}
-        <UploadForm bind:originalImage bind:key />
+        <UploadForm bind:socket bind:originalImage />
       {:else if $globalState === "RESULTS"}
-        <Results {originalImage} {key} />
+        <Results bind:socket {originalImage} />
       {:else if $globalState === "ERROR"}
-        <Error output={outputImages} />
+        <Error {error} />
       {/if}
     </Route>
   </main>

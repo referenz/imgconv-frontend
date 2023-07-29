@@ -1,40 +1,39 @@
 <script lang="ts">
   import Loading from "./Loading.svelte";
-  import type { ErrorMsg, FileInfos } from "../utils/types";
+  import type { FileInfos, ResponseImage } from "../utils/types";
   import ImgFigure from "./ImgFigure.svelte";
-  import { fetchURL } from "../utils/fetchUrlProvider";
+  import type { Socket } from "socket.io-client";
 
-  export let key: string;
   export let format: string;
   export let quality: string;
   export let handler: string;
   export let responseImgInfos: Map<string, FileInfos | null>;
+  export let socket: Socket;
 
-  async function fetchImage(): Promise<[string, FileInfos]> {
-    quality = quality ? "/" + quality : '';
-    const response = await fetch(`${fetchURL}/${key}/${format}${quality}`);
-    const formdata = await response.formData();
-    // const formdata = await fetch(`${fetchURL}/${key}/${format}${quality}`) |> await %.formData()
+  async function fetchImage(format: string, quality: string, handler: string): Promise<[ArrayBuffer, FileInfos]> {
+    return new Promise<[ArrayBuffer, FileInfos]>((resolve, reject) => {
+      socket.emit("request", handler, format, quality);
 
-    if (formdata.has("error")) {
-      responseImgInfos.set(handler, null);
-      responseImgInfos = responseImgInfos;
-      return Promise.reject((JSON.parse(formdata.get("error")?.toString() ?? 'Fehler') as ErrorMsg).message);
-    }
+      socket.on("request-answer", (res: ResponseImage) => {
+        if (res.handler === handler) {
+          responseImgInfos.set(handler, { filename: res.filename, filesize: res.filesize, quality: res.quality });
+          responseImgInfos = responseImgInfos;
 
-    const fetchedImage = await (formdata.get("file") as File).text();
-    const manifest = JSON.parse(
-      formdata.get("manifest")?.toString() ?? ""
-    ) as FileInfos;
+          resolve([res.binary, { filename: res.filename, filesize: res.filesize, quality: res.quality }]);
+        }
+      });
 
-    responseImgInfos.set(handler, manifest);
-    responseImgInfos = responseImgInfos;
+      socket.on("request-error", (msg: string) => {
+        responseImgInfos.set(handler, null);
+        responseImgInfos = responseImgInfos;
 
-    return [fetchedImage, manifest];
+        reject(new Error(msg));
+      });
+    });
   }
 </script>
 
-{#await fetchImage()}
+{#await fetchImage(format, quality, handler)}
   <Loading />
 {:then [source, manifest]}
   <ImgFigure {handler} {source} {manifest} />

@@ -1,12 +1,14 @@
 <script lang="ts">
-  import type { FileInfos, InputData } from "../utils/types";
+  import type { Socket } from "socket.io-client";
+  import type { FileInfos, OriginalImage } from "../utils/types";
   import Charts from "./Charts.svelte";
   import ImgFigure from "./ImgFigure.svelte";
   import Loading from "./Loading.svelte";
   import ResultsFetchImage from "./ResultsFetchImage.svelte";
   import ResultsNav from "./ResultsNav.svelte";
-  export let originalImage: InputData;
-  export let key: string;
+
+  export let socket: Socket;
+  export let originalImage: OriginalImage;
 
   const formats = [
     "png",
@@ -34,7 +36,7 @@
   });
 
   let responseImgInfos = new Map<string, FileInfos>();
-  responseImgInfos.set("inputfile", originalImage[1].manifest);
+  responseImgInfos.set("inputfile", { filename: originalImage.filename, filesize: originalImage.filesize  });
 </script>
 
 <div class="row">
@@ -46,18 +48,18 @@
     <div class="row">
       <ImgFigure
         handler="inputfile"
-        manifest={originalImage[1].manifest}
-        source={originalImage[1].source}
+        manifest={ { filename: originalImage.filename, filesize: originalImage.filesize } }
+        source={ originalImage.binary }
       />
     </div>
     {#each requestImages as [format, quality, handler]}
       <div class="row">
         <ResultsFetchImage
-          {key}
           {format}
           {quality}
           {handler}
           bind:responseImgInfos
+          bind:socket
         />
       </div>
     {/each}

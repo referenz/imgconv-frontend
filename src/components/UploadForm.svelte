@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { globalState } from "../utils/state";
-  import type { InputData } from "../utils/types";
-  import { fetchURL } from "../utils/fetchUrlProvider";
+  import type { Socket } from "socket.io-client";
+  import type { OriginalImage } from "src/utils/types";
 
-  export let originalImage: InputData;
-  export let key: string;
+  export let originalImage: OriginalImage;
+  export let socket: Socket;
 
   let dragover = false;
   function dragOver() {
@@ -27,8 +26,7 @@
     const parentElement = (e.target as HTMLInputElement).parentElement;
     if (parentElement) {
       dragover = true;
-      parentElement.innerText =
-        (e.target as HTMLInputElement).files?.[0].name ?? "";
+      parentElement.innerText = (e.target as HTMLInputElement).files?.[0].name ?? "";
     }
 
     // Ohne umkopieren scheint die strikte Typenprüfung hier nicht zu funktioniren
@@ -38,37 +36,18 @@
   }
 
   function submitFile(file: File) {
-    globalState.set("LOADING");
-
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
     reader.addEventListener("load", () => {
-      const output: InputData = [
-        "original",
-        {
-          source: reader.result as string,
-          manifest: {
-            filename: file.name,
-            filesize: file.size,
-          },
-        },
-      ];
+      const output: OriginalImage = {
+        filename: file.name,
+        filesize: file.size,
+        filetype: file.type,
+        binary: reader.result as ArrayBuffer,
+      };
 
       originalImage = output;
-
-      const formdata = new FormData();
-      formdata.append("datei", file);
-
-      fetch(`${fetchURL}/storeimage`, {
-        method: "POST",
-        body: formdata,
-      })
-        .then((res) => res.json())
-        .then((res: { success: boolean; handler: string }) => {
-          res.success ? globalState.set("RESULTS"): globalState.set('ERROR');
-          key = res.handler;
-        })
-        .catch(() => globalState.set('ERROR'));
+      socket.emit("upload", output);
     });
   }
 </script>
@@ -84,12 +63,7 @@
       on:drop|preventDefault={drop}
     >
       Grafikdatei auf dieses Feld ziehen oder hier klicken
-      <input
-        type="file"
-        id="filedrop"
-        class="form-control-file"
-        on:input={fsInput}
-      />
+      <input type="file" id="filedrop" class="form-control-file" on:input={fsInput} />
     </label>
   </div>
 </form>

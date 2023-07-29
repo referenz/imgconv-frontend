@@ -4,18 +4,21 @@
 
   export let handler: string;
   export let manifest: FileInfos;
-  export let source: string;
+  export let source: ArrayBuffer;
+
+  const blob = new Blob([source]);
+  const dataURL = URL.createObjectURL(blob);
 </script>
 
 <figure class="figure">
   <img
     class="figure-img img-fluid"
     id={handler}
-    src={source}
+    src={dataURL}
     alt={manifest.filename}
   />
   <figcaption class="figure-caption">
-    <a href={source} download={manifest.filename}>
+    <a href={dataURL} download={manifest.filename}>
       {manifest.filename}
     </a>
     <br />

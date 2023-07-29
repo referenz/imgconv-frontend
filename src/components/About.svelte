@@ -1,12 +1,8 @@
 <script lang="ts">
-  import { fetchURL } from "../utils/fetchUrlProvider";
+  import type { Socket } from "socket.io-client";
+  export let socket: Socket;
 
-  $: connected = false;
-  fetch(fetchURL + "/")
-    .then(response => {
-      if (response.ok && response.status === 200) connected = true;
-    })
-    .catch(() => (connected = false));
+  const connected = (socket.connected) ? true : false;
 </script>
 
 <h1>ImgConv: Bilder online konvertieren</h1>

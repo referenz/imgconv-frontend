@@ -13,3 +13,16 @@ export interface ErrorMsg {
 }
 
 export type Manifest = Record<string, FileInfos>;
+
+
+export interface OriginalImage {
+  filename: string;
+  filesize: number;
+  filetype: string;
+  binary: ArrayBuffer;
+};
+
+export interface ResponseImage extends OriginalImage {
+      handler: string;
+      quality?: number;
+}
