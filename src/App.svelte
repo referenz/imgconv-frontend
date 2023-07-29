@@ -13,8 +13,8 @@
 
   import io from 'socket.io-client'
 
-  const host = (import.meta.env.PROD) ? 'wss://referenz.io/imgconv-backend' : 'ws://localhost:3001';
-  let socket = io(host);
+  const host = (import.meta.env.PROD) ? 'wss://referenz.io' : 'ws://localhost:3001';
+  let socket = io(host, { path: '/imgconv-backend/socket.io/'});
 
   socket.on("upload-successful", () => { globalState.set("RESULTS"); })
   socket.on("error", msg => {
