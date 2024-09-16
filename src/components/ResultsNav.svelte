@@ -14,11 +14,10 @@
     else rest.push(handler);
   });
 
-  // Deep Clone des Arrays, weil sich sont die Werte in den anderen Komponenten ändern.
-  rest = JSON.parse(JSON.stringify(rest)) as string[][];
-  rest.forEach((entry) => {
-    if (entry[0] === "png") entry[0] = "PNG";
-    else if (entry[0] === "webp-nearlossless") entry[0] = "WebP nearlossless";
+  rest = rest.map((entry) => {
+    if (entry[0] === "png") return ["PNG", ...entry.slice(1)];
+    else if (entry[0] === "webp-nearlossless") return ["WebP nearlossless", ...entry.slice(1)];
+    else return entry;
   });
 </script>
 
